@@ -1,7 +1,6 @@
 *.pyc
 .vscode/
 _pycache_/
-settings.py
 venv/
 .env
 .vercel
