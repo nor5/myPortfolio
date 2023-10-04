@@ -4,3 +4,4 @@ _pycache_/
 venv/
 .env
 .vercel
+.READEME.md
