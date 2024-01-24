@@ -15,6 +15,7 @@ from pathlib import Path
 
 import dj_database_url
 from dotenv import load_dotenv
+from whitenoise.middleware import WhiteNoiseMiddleware
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,9 +45,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    # "cloudinary_storage",
-    # "cloudinary",
+    "cloudinary_storage",
     "django.contrib.staticfiles",
+    "cloudinary",
     "portfolio",
 ]
 
@@ -134,13 +135,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_URL = "/static/"
-
-
 # Static files settings
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
+
+
 if os.environ.get("ENV") == "PRODUCTION":
     # Extra places for collectstatic to find static files.
     STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
@@ -155,15 +155,10 @@ if os.environ.get("ENV") == "PRODUCTION":
     # ...
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES["default"].update(db_from_env)
-"""
+
+MEDIA_URL = "/media/"
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("CLOUD_NAME"),
-    "API_KEY": os.environ.get("API_KEY"),
-    "API_SECRET": os.environ.get("API_SECRET"),
-}
-"""
 
 """
 
@@ -171,8 +166,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "portfolio/static"),
 )
 """
-#MEDIA_ROOT = BASE_DIR
-#MEDIA_URL = "/media/"
 
 
 # Default primary key field type
@@ -186,3 +179,15 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_USE_TLS = True
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("CLOUD_NAME"),
+    "API_KEY": os.environ.get("API_KEY"),
+    "API_SECRET": os.environ.get("API_SECRET"),
+}
+STORAGES = {
+    "default": {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"},
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
