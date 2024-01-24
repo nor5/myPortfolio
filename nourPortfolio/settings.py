@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    # "cloudinary_storage",
+    # "cloudinary",
     "django.contrib.staticfiles",
-    "cloudinary_storage",
-    "cloudinary",
     "portfolio",
 ]
 
@@ -155,15 +155,15 @@ if os.environ.get("ENV") == "PRODUCTION":
     # ...
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES["default"].update(db_from_env)
-
+"""
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-CLOUDINARY_STORAGE = { 
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-    'API_KEY': os.environ.get('API_KEY'), 
-    'API_SECRET':os.environ.get('API_SECRET'), 
- }
-
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("CLOUD_NAME"),
+    "API_KEY": os.environ.get("API_KEY"),
+    "API_SECRET": os.environ.get("API_SECRET"),
+}
+"""
 
 """
 
@@ -171,8 +171,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "portfolio/static"),
 )
 """
-MEDIA_ROOT = BASE_DIR
-MEDIA_URL = "/media/"
+#MEDIA_ROOT = BASE_DIR
+#MEDIA_URL = "/media/"
 
 
 # Default primary key field type
