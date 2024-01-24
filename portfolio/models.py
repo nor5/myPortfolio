@@ -21,7 +21,7 @@ class Education(models.Model):
 
 
 class Projects(models.Model):
-    image = models.ImageField(upload_to="static/img/", blank=True)
+    image = models.ImageField(upload_to="static/img/")
     summary = models.TextField(null=True)
     name = models.CharField(max_length=200)
     url = models.URLField(null=True)
